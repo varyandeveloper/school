@@ -20,4 +20,14 @@ Route::get('/', function () {
 
 Auth::routes(['register' => false]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::middleware(['auth', 'role:admin'])
+    ->namespace('Admin')
+    ->group(function (\Illuminate\Routing\Router $router) {
+        $router->resource('schedules', 'Schedule\ScheduleController');
+        $router->resource('teachers', 'Teacher\TeacherController');
+        $router->resource('students', 'Student\StudentController');
+        $router->resource('classes', 'Classes\ClassController');
+        $router->resource('subjects', 'Subject\SubjectController');
+});

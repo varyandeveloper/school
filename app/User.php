@@ -2,6 +2,10 @@
 
 namespace App;
 
+use App\Models\Schedule;
+use App\Models\Subject;
+use App\Models\UserSubject;
+use App\Models\UserSchedule;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -37,4 +41,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function subjects()
+    {
+        return $this->hasManyThrough(Subject::class, UserSubject::class);
+    }
+
+    public function schedules()
+    {
+        return $this->hasManyThrough(Schedule::class, UserSchedule::class);
+    }
 }

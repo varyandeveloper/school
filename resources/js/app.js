@@ -6,6 +6,14 @@
 
 require('./bootstrap');
 
+$(function () {
+    $('.datetime-picker').datetimepicker({
+        changeMonth: true,
+        changeYear: true,
+        format:'Y-m-d H:i'
+    });
+});
+
 window.Vue = require('vue');
 
 /**

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubjectStudentsTable extends Migration
+class CreateUserSubjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateSubjectStudentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('subject_students', function (Blueprint $table) {
+        Schema::create('user_subjects', function (Blueprint $table) {
+            $table->foreignId('user_id');
             $table->foreignId('subject_id');
-            $table->foreignId('student_id');
-            $table->primary(['subject_id', 'student_id']);
+            $table->primary(['subject_id', 'user_id']);
             $table->foreign('subject_id')->references('id')->on('subjects');
-            $table->foreign('student_id')->references('id')->on('students');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -29,6 +29,6 @@ class CreateSubjectStudentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subject_students');
+        Schema::dropIfExists('user_subjects');
     }
 }
