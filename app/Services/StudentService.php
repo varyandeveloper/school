@@ -2,10 +2,11 @@
 
 namespace App\Services;
 
-use App\Models\UserSchedule;
-use App\Models\UserSubject;
 use Carbon\Carbon;
 use App\Models\Student;
+use App\Models\UserSubject;
+use App\Models\UserSchedule;
+use App\Models\Scopes\Subject;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -23,6 +24,12 @@ class StudentService extends AbstractService
 
     public function getAll()
     {
+        return $this->studentModel->with('user')->get();
+    }
+
+    public function getAllBySubject(int $subjectId): Collection
+    {
+        $this->studentModel::addGlobalScope(new Subject($subjectId));
         return $this->studentModel->with('user')->get();
     }
 

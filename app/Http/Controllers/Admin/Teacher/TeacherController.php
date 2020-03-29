@@ -31,7 +31,8 @@ class TeacherController extends Controller
 
     public function ajaxGetBySubject(int $subject)
     {
-        $teachers = $this->teacherService->getAllBySubject($subject);
+        $duration = request()->get('duration');
+        $teachers = $this->teacherService->getAllBySubject($subject, $duration);
         return response()->json([
             'teachers' => $teachers
         ]);

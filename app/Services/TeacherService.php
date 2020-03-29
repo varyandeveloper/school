@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Scopes\AvailableTeacher;
 use App\Models\Teacher;
 use App\Models\UserSubject;
 use App\Models\UserSchedule;
@@ -21,9 +22,10 @@ class TeacherService extends AbstractService
         $this->userService = $userService;
     }
 
-    public function getAllBySubject(int $subjectId): Collection
+    public function getAllBySubject(int $subjectId, int $duration): Collection
     {
         $this->teacherModel::addGlobalScope(new Subject($subjectId));
+        $this->teacherModel::addGlobalScope(new AvailableTeacher($duration));
         return $this->teacherModel->with('user')->get();
     }
 

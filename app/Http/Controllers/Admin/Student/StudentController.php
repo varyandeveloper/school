@@ -29,6 +29,12 @@ class StudentController extends Controller
         $this->subjectService = $subjectService;
     }
 
+    public function ajaxGetBySubject(int $subject)
+    {
+        $students = $this->studentService->getAllBySubject($subject);
+        return response()->json(compact('students'));
+    }
+
     public function index()
     {
         $students = $this->studentService->getAll();

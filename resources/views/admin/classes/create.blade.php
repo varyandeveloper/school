@@ -65,8 +65,8 @@
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label for="class_location" class="col-form-label">Students</label>
-                            <select multiple class="form-control @error('students') is-invalid @enderror" id="class_location" name="students[]">
+                            <label for="class_student" class="col-form-label">Students</label>
+                            <select multiple class="form-control @error('students') is-invalid @enderror" id="class_student" name="students[]">
                                 <option value="">-- Select Students --</option>
                             </select>
                             @error('students')

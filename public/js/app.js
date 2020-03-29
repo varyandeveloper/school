@@ -49756,6 +49756,8 @@ module.exports = /*#__PURE__*/function () {
 
     this.$subject = $('#class_subject');
     this.$teacher = $('#class_teacher');
+    this.$student = $('#class_student');
+    this.$duration = $('#class_duration');
   }
 
   _createClass(ClassCreate, [{
@@ -49764,23 +49766,29 @@ module.exports = /*#__PURE__*/function () {
       var _this = this;
 
       this.$subject.on('change', function (e) {
-        _this.loadTeachers($(e.currentTarget).val());
+        var subject = $(e.currentTarget).val();
+
+        if (_this.$duration.val()) {
+          _this.loadUsers(subject, 'teachers', _this.$teacher);
+
+          _this.loadUsers(subject, 'students', _this.$student);
+        }
       });
     }
   }, {
-    key: "loadTeachers",
-    value: function loadTeachers(subjectId) {
+    key: "loadUsers",
+    value: function loadUsers(subjectId, type, $selector) {
       var _this2 = this;
 
-      $.get('/teachers/by-subject/' + subjectId, {}, function (response) {
+      $.get('/' + type + '/by-subject/' + subjectId, {
+        duration: this.$duration.val()
+      }, function (response) {
         var placeholder = _this2.$teacher.find('option').eq(0);
 
-        _this2.$teacher.find('option').remove();
-
-        _this2.$teacher.append(placeholder);
-
-        response.teachers.forEach(function (teacher) {
-          _this2.$teacher.append('<option value="' + teacher.id + '">' + teacher.user.name + '</option>');
+        $selector.find('option').remove();
+        $selector.append(placeholder);
+        response[type].forEach(function (user) {
+          $selector.append('<option value="' + user.id + '">' + user.user.name + '</option>');
         });
       });
     }

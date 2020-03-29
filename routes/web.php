@@ -31,5 +31,7 @@ Route::middleware(['auth', 'role:admin'])
         $router->resource('classes', 'Classes\ClassController');
         $router->resource('subjects', 'Subject\SubjectController');
         $router->resource('locations', 'Location\LocationController');
+
         $router->get('teachers/by-subject/{subject_id}', 'Teacher\TeacherController@ajaxGetBySubject');
+        $router->get('students/by-subject/{subject_id}', 'Student\StudentController@ajaxGetBySubject');
 });

@@ -15,6 +15,10 @@
                     @endif
 
                     You are logged in!
+
+                    @if(auth()->user()->hasRole('admin'))
+                        <a href="{{route('classes.index')}}">Classes</a>
+                    @endif
                 </div>
             </div>
         </div>
