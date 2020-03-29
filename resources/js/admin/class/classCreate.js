@@ -6,21 +6,26 @@ module.exports = class ClassCreate {
         this.$duration = $('#class_duration');
     }
 
-    onSubjectChange() {
-        this.$subject.on('change', e => {
-            const subject = $(e.currentTarget).val();
-            if (this.$duration.val()) {
-                this.loadUsers(subject, 'teachers', this.$teacher);
-                this.loadUsers(subject, 'students', this.$student);
-            }
-        });
+    onDurationChange() {
+        this.$duration.on('change', this.checkToLoad);
     }
 
-    loadUsers(subjectId, type, $selector) {
-        $.get('/' + type + '/by-subject/' + subjectId, {
+    onSubjectChange() {
+        this.$subject.on('change', this.checkToLoad);
+    }
+
+    checkToLoad(e) {
+        if (this.$duration.val() && this.$subject.val()) {
+            this.loadUsers('teachers', this.$teacher);
+            this.loadUsers('students', this.$student);
+        }
+    }
+
+    loadUsers(type, $selector) {
+        $.get('/' + type + '/by-subject/' + this.$subject.val(), {
             duration: this.$duration.val()
         }, response => {
-            let placeholder = this.$teacher.find('option').eq(0);
+            let placeholder = $selector.find('option').eq(0);
             $selector.find('option').remove();
             $selector.append(placeholder);
             response[type].forEach(user => {
@@ -30,6 +35,8 @@ module.exports = class ClassCreate {
     }
 
     init() {
+        this.checkToLoad = this.checkToLoad.bind(this);
+        this.onDurationChange();
         this.onSubjectChange();
     }
 };

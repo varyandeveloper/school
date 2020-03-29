@@ -49761,30 +49761,30 @@ module.exports = /*#__PURE__*/function () {
   }
 
   _createClass(ClassCreate, [{
+    key: "onDurationChange",
+    value: function onDurationChange() {
+      this.$duration.on('change', this.checkToLoad);
+    }
+  }, {
     key: "onSubjectChange",
     value: function onSubjectChange() {
-      var _this = this;
-
-      this.$subject.on('change', function (e) {
-        var subject = $(e.currentTarget).val();
-
-        if (_this.$duration.val()) {
-          _this.loadUsers(subject, 'teachers', _this.$teacher);
-
-          _this.loadUsers(subject, 'students', _this.$student);
-        }
-      });
+      this.$subject.on('change', this.checkToLoad);
+    }
+  }, {
+    key: "checkToLoad",
+    value: function checkToLoad(e) {
+      if (this.$duration.val() && this.$subject.val()) {
+        this.loadUsers('teachers', this.$teacher);
+        this.loadUsers('students', this.$student);
+      }
     }
   }, {
     key: "loadUsers",
-    value: function loadUsers(subjectId, type, $selector) {
-      var _this2 = this;
-
-      $.get('/' + type + '/by-subject/' + subjectId, {
+    value: function loadUsers(type, $selector) {
+      $.get('/' + type + '/by-subject/' + this.$subject.val(), {
         duration: this.$duration.val()
       }, function (response) {
-        var placeholder = _this2.$teacher.find('option').eq(0);
-
+        var placeholder = $selector.find('option').eq(0);
         $selector.find('option').remove();
         $selector.append(placeholder);
         response[type].forEach(function (user) {
@@ -49795,6 +49795,8 @@ module.exports = /*#__PURE__*/function () {
   }, {
     key: "init",
     value: function init() {
+      this.checkToLoad = this.checkToLoad.bind(this);
+      this.onDurationChange();
       this.onSubjectChange();
     }
   }]);
