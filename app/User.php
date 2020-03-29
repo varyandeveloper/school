@@ -46,9 +46,4 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough(Subject::class, UserSubject::class);
     }
-
-    public function schedules()
-    {
-        return $this->hasManyThrough(Schedule::class, UserSchedule::class);
-    }
 }

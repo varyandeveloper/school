@@ -19,11 +19,11 @@ class CreateClassesTable extends Migration
             $table->foreignId('location_id');
             $table->foreignId('subject_id');
             $table->foreignId('teacher_id');
-            $table->dateTime('start_date');
-            $table->dateTime('end_date');
+            $table->unsignedSmallInteger('duration');
+            $table->timestamp('created_at')->useCurrent();
             $table->foreign('location_id')->references('id')->on('locations');
             $table->foreign('subject_id')->references('id')->on('subjects');
-            $table->foreign('teacher_id')->references('id')->on('teachers');
+            $table->foreign('teacher_id')->references('id')->on('teacher');
         });
     }
 

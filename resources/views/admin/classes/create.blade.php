@@ -12,7 +12,7 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="class_title" class="col-form-label">Title</label>
-                            <input class="form-control @error('name') is-invalid @enderror" id="class_title" name="title" type="text">
+                            <input value="{{old('title')}}" class="form-control @error('name') is-invalid @enderror" id="class_title" name="title" type="text">
                             @error('name')
                             <small class="text-danger">{{$message}}</small>
                             @enderror
@@ -20,27 +20,21 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="class_start_date" class="col-form-label">Class Start Date</label>
-                            <input class="form-control datetime-picker @error('start_date') is-invalid @enderror" id="class_start_date" name="start_date" type="text">
-                            @error('start_date')
+                            <label for="class_duration" class="col-form-label">Duration</label>
+                            <input value="{{old('duration')}}" class="form-control @error('duration') is-invalid @enderror" id="class_duration" name="duration" type="text">
+                            @error('duration')
                             <small class="text-danger">{{$message}}</small>
                             @enderror
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="class_end_date" class="col-form-label">Class End Date</label>
-                            <input class="form-control datetime-picker @error('end_date') is-invalid @enderror" id="class_end_date" name="end_date" type="text">
-                            @error('end_date')
-                            <small class="text-danger">{{$message}}</small>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
                             <label for="class_subject" class="col-form-label">Subject</label>
                             <select class="form-control @error('subject') is-invalid @enderror" id="class_subject" name="subject">
                                 <option value="">-- Select Subject --</option>
+                                @foreach($subjects as $subject)
+                                    <option value="{{$subject->id}}">{{$subject->title}}</option>
+                                @endforeach
                             </select>
                             @error('subject')
                             <small class="text-danger">{{$message}}</small>
@@ -58,7 +52,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label for="class_location" class="col-form-label">Location</label>
                             <select class="form-control @error('location') is-invalid @enderror" id="class_location" name="location">
@@ -69,7 +63,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-sm-8">
+                    <div class="col-sm-12">
                         <div class="form-group">
                             <label for="class_location" class="col-form-label">Students</label>
                             <select multiple class="form-control @error('students') is-invalid @enderror" id="class_location" name="students[]">
@@ -87,4 +81,12 @@
             </div>
         </form>
     </div>
+@endsection
+@section('script')
+    <script>
+        $(function () {
+            let classCreate = new ClassCreate;
+            classCreate.init();
+        })
+    </script>
 @endsection

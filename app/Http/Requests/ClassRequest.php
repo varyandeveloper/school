@@ -13,8 +13,7 @@ class ClassRequest extends FormRequest
             'title' => [
                 'max:255'
             ],
-            'start_date' => 'required|date_format:Y-m-d H:i',
-            'end_date' => 'required|date_format:Y-m-d H:i',
+            'duration' => 'required|numeric',
             'location' => [
                 'required',
                 Rule::exists('locations', 'id')
@@ -25,7 +24,7 @@ class ClassRequest extends FormRequest
             ],
             'teacher' => [
                 'required',
-                Rule::exists('teachers', 'user_id')
+                Rule::exists('teacher', 'user_id')
             ],
             'students' => [
                 'required',

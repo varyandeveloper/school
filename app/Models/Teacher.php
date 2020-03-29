@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -12,10 +13,10 @@ class Teacher extends Model
 
     protected $fillable = [
         'user_id',
-        'first_name',
-        'last_name',
         'business_phone'
     ];
+
+    public $timestamps = false;
 
     public function user()
     {

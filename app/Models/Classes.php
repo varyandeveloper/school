@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,14 +18,13 @@ class Classes extends Model
         'location_id',
         'subject_id',
         'teacher_id',
-        'start_date',
-        'end_date'
+        'duration'
     ];
 
     public $timestamps = false;
 
     public function scopeFuture(Builder $builder)
     {
-        $builder->whereDate($this->getTable() . '.start_date', '>', new \DateTime);
+        $builder->whereDate($this->getTable() . '.created_at', '>', Carbon::today()->startOfDay());
     }
 }

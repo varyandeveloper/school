@@ -12,4 +12,6 @@ class Subject extends Model
         'min_age',
         'max_age'
     ];
+
+    public $timestamps = false;
 }

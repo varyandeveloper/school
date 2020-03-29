@@ -12,8 +12,10 @@
                     <div class="card-body">
                         <ul class="list-unstyled">
                             <li><a href="{{route('schedules.index')}}">Schedules</a></li>
+                            <li><a href="{{route('subjects.index')}}">Subjects</a></li>
                             <li><a href="{{route('teachers.index')}}">Teachers</a></li>
                             <li><a href="{{route('students.index')}}">Students</a></li>
+                            <li><a href="{{route('locations.index')}}">Locations</a></li>
                             <li><a href="{{route('classes.index')}}">Classes</a></li>
                         </ul>
                     </div>

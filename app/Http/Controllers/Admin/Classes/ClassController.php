@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ClassRequest;
 use App\Services\ClassService;
 use App\Services\LocationService;
+use App\Services\SubjectService;
 
 class ClassController extends Controller
 {
@@ -13,14 +14,18 @@ class ClassController extends Controller
 
     protected $classService;
 
+    protected $subjectService;
+
     protected $locationService;
 
     public function __construct(
         ClassService $classService,
+        SubjectService $subjectService,
         LocationService $locationService
     )
     {
         $this->classService = $classService;
+        $this->subjectService = $subjectService;
         $this->locationService = $locationService;
     }
 
@@ -34,7 +39,12 @@ class ClassController extends Controller
 
     public function create()
     {
-        return view(self::VIEW_PREFIX . __FUNCTION__);
+        $subjects = $this->subjectService->getAll();
+        $locations = $this->locationService->getAll();
+        return view(self::VIEW_PREFIX . __FUNCTION__, compact(
+            'subjects',
+            'locations'
+        ));
     }
 
     public function store(ClassRequest $classRequest)

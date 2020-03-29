@@ -12,6 +12,12 @@ $(function () {
         changeYear: true,
         format:'Y-m-d H:i'
     });
+    $('.date-picker').datetimepicker({
+        changeMonth: true,
+        changeYear: true,
+        format:'Y-m-d',
+        timepicker: false
+    });
 });
 
 window.Vue = require('vue');

@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserSchedule extends Model
+class Location extends Model
 {
     protected $fillable = [
-        'user_id',
-        'schedule_id'
+        'title',
+        'latitude',
+        'longitude',
+        'capacity'
     ];
 
     public $timestamps = false;
